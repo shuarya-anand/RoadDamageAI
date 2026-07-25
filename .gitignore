@@ -1,5 +1,16 @@
+# Virtual environment
 .venv/
+
+# Python cache
 __pycache__/
+*.pyc
+
+# YOLO outputs
 runs/
 output/
-*.pycz
+
+# VS Code
+.vscode/
+
+# Dataset (too large for GitHub)
+dataset/
