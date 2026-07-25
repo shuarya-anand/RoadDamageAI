@@ -1,9 +1,19 @@
-.venv/
+# Python
 __pycache__/
+*.pyc
+
+# Virtual Environment
+.venv/
+
+# Outputs
 runs/
 output/
-*.pyc
-*.pyo
-.DS_Store
-.vscode/
+
+# Dataset
 dataset/
+
+# VS Code
+.vscode/
+
+# OS
+.DS_Store
