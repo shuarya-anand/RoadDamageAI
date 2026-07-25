@@ -1,30 +1,30 @@
 # 🛣️ RoadDamageAI
 
-An AI-powered desktop application for detecting road damage using **YOLOv8**, **Python**, and **CustomTkinter**.
+An AI-powered desktop application for automatic road damage detection using **YOLOv8**, **Python**, **OpenCV**, and **CustomTkinter**.
 
-RoadDamageAI analyzes road images and automatically identifies different types of road defects, helping improve road inspection efficiency.
+RoadDamageAI allows users to analyze road images, detect various types of road damage, visualize the results with bounding boxes and confidence scores, and save the annotated output.
 
 ---
 
 ## 📸 Features
 
-- 🚀 AI-powered road damage detection
-- 🧠 YOLOv8 object detection model
-- 🖥 Modern desktop interface built with CustomTkinter
-- 📷 Load road images from your computer
-- 🎯 Detect multiple road damages in a single image
-- 📊 Display confidence score for every detection
+- 🧠 AI-powered road damage detection using YOLOv8
+- 🖥️ Modern desktop GUI built with CustomTkinter
+- 📂 Open road images from your computer
+- 🚀 One-click road damage detection
+- 📊 Confidence score for each detected damage
+- 🖼️ Side-by-side original and detected image preview
 - 💾 Save annotated detection results
-- 🌙 Modern dark theme interface
+- 🌙 Modern dark-themed interface
 
 ---
 
-## 🛣️ Detectable Road Damage
+## 🛣️ Supported Damage Types
 
-The model can detect the following classes:
+The trained model can detect the following road conditions:
 
-| Class | Description |
-|--------|-------------|
+| Class ID | Damage Type |
+|----------|----------------------|
 | D00 | Longitudinal Crack |
 | D10 | Transverse Crack |
 | D20 | Alligator Crack |
@@ -35,23 +35,29 @@ The model can detect the following classes:
 
 ---
 
-## 🖼 Application Preview
+## 📂 Project Structure
 
-### Original Image
-
-- Upload a road image for inspection.
-
-### Detection Result
-
-The application highlights detected damages using bounding boxes and displays:
-
-- Damage type
-- Confidence score
-- Detection summary
+```text
+RoadDamageAI/
+│
+├── app.py                 # Desktop GUI
+├── train.py               # Model training
+├── predict.py             # Prediction script
+├── requirements.txt
+├── README.md
+├── .gitignore
+│
+├── models/
+│   └── best.pt            # Trained YOLOv8 model
+│
+├── test_images/           # Sample images
+│
+└── output/                # Saved detection results
+```
 
 ---
 
-## 🛠 Technologies Used
+## 🧠 Technologies Used
 
 - Python 3.14
 - Ultralytics YOLOv8
@@ -62,61 +68,32 @@ The application highlights detected damages using bounding boxes and displays:
 
 ---
 
-## 📁 Project Structure
+## ⚙️ Installation
 
-```
-RoadDamageAI/
-│
-├── app.py                 # Desktop application
-├── train.py               # Model training script
-├── predict.py             # Prediction script
-├── requirements.txt
-├── README.md
-│
-├── models/
-│   └── best.pt            # Trained YOLO model
-│
-├── dataset/
-│
-├── test_images/
-│
-├── output/
-│
-└── .gitignore
-```
-
----
-
-## ⚙ Installation
-
-Clone the repository:
+Clone the repository
 
 ```bash
 git clone https://github.com/shuarya-anand/RoadDamageAI.git
 cd RoadDamageAI
 ```
 
-Create a virtual environment:
-
-```bash
-python -m venv .venv
-```
-
-Activate it.
+Create a virtual environment
 
 ### Linux / macOS
 
 ```bash
+python -m venv .venv
 source .venv/bin/activate
 ```
 
 ### Windows
 
 ```powershell
+python -m venv .venv
 .venv\Scripts\activate
 ```
 
-Install dependencies:
+Install the required packages
 
 ```bash
 pip install -r requirements.txt
@@ -124,9 +101,9 @@ pip install -r requirements.txt
 
 ---
 
-## ▶ Running the Application
+## ▶️ Running the Application
 
-Start the desktop application:
+Start the desktop application
 
 ```bash
 python app.py
@@ -140,40 +117,71 @@ python app.py
 2. Click **📂 Open Image**.
 3. Select a road image.
 4. Click **🚀 Run Detection**.
-5. View detected road damages.
-6. Save the annotated image using **💾 Save Image**.
+5. View the detected road damages.
+6. Save the annotated result using **💾 Save Image**.
 
 ---
 
-## 🎯 Example Workflow
+## 📊 Example Workflow
 
-```
-Input Image
-      │
-      ▼
-YOLOv8 Detection
-      │
-      ▼
-Bounding Boxes
-      │
-      ▼
-Confidence Scores
-      │
-      ▼
-Save Detection Result
+```text
+Road Image
+     │
+     ▼
+YOLOv8 Model
+     │
+     ▼
+Road Damage Detection
+     │
+     ▼
+Bounding Boxes + Confidence
+     │
+     ▼
+Annotated Image
 ```
 
 ---
 
-## 📚 Future Improvements
+## 📦 Model
 
-- Video detection
-- Live webcam detection
-- Drag-and-drop image upload
-- PDF inspection report generation
-- GPS location tagging
-- Detection history
-- Multi-language support
+The repository includes the trained YOLOv8 model:
+
+```
+models/best.pt
+```
+
+This allows the application to run immediately without retraining.
+
+---
+
+## 📚 Dataset
+
+This project was trained using the **RDD2022 (Road Damage Detection 2022)** dataset.
+
+The dataset is **not included** in this repository because it is publicly available.
+
+You can download it from:
+
+- https://github.com/sekilab/RoadDamageDetector
+- https://datasetninja.com/road-damage-detection
+
+After downloading, place the dataset inside a folder named:
+
+```text
+dataset/
+```
+
+---
+
+## 📈 Future Improvements
+
+- 🎥 Video road damage detection
+- 📷 Live webcam detection
+- 📄 PDF inspection report generation
+- 🌍 GPS location integration
+- 📊 Detection statistics dashboard
+- ☁️ Cloud deployment
+- 📱 Mobile application
 
 ---
 
@@ -181,10 +189,18 @@ Save Detection Result
 
 **Shaurya Anand**
 
-RoadDamageAI was developed as a school AI project demonstrating the application of computer vision and deep learning for automated road damage detection.
+RoadDamageAI was developed as a school AI project demonstrating the application of deep learning and computer vision for automated road damage detection.
 
 ---
 
-## 📄 License
+## 📜 License
 
-This project is intended for educational and learning purposes.
+This project is released under the **MIT License**.
+
+You are free to use, modify, and distribute this project for educational and personal purposes.
+
+---
+
+## ⭐ Support
+
+If you found this project useful, consider giving it a ⭐ on GitHub.
