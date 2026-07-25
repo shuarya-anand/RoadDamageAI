@@ -1,25 +1,29 @@
-# 🚧 RoadDamageAI
+# 🛣️ RoadDamageAI
 
-An AI-powered Road Damage Detection system built using **YOLOv8** and the **RDD2022 Dataset**.
+An AI-powered desktop application for detecting road damage using **YOLOv8**, **Python**, and **CustomTkinter**.
 
-The model automatically detects different types of road damages such as potholes and cracks from road images.
-
----
-
-## Features
-
-- Detects multiple road damage types
-- Uses YOLOv8 Object Detection
-- Automatically loads images from the `test_images` folder
-- Displays damage type and confidence
-- Saves annotated output image
-- Easy to use
+RoadDamageAI analyzes road images and automatically identifies different types of road defects, helping improve road inspection efficiency.
 
 ---
 
-## Road Damage Classes
+## 📸 Features
 
-| Class | Damage Type |
+- 🚀 AI-powered road damage detection
+- 🧠 YOLOv8 object detection model
+- 🖥 Modern desktop interface built with CustomTkinter
+- 📷 Load road images from your computer
+- 🎯 Detect multiple road damages in a single image
+- 📊 Display confidence score for every detection
+- 💾 Save annotated detection results
+- 🌙 Modern dark theme interface
+
+---
+
+## 🛣️ Detectable Road Damage
+
+The model can detect the following classes:
+
+| Class | Description |
 |--------|-------------|
 | D00 | Longitudinal Crack |
 | D10 | Transverse Crack |
@@ -31,43 +35,88 @@ The model automatically detects different types of road damages such as potholes
 
 ---
 
-## Project Structure
+## 🖼 Application Preview
+
+### Original Image
+
+- Upload a road image for inspection.
+
+### Detection Result
+
+The application highlights detected damages using bounding boxes and displays:
+
+- Damage type
+- Confidence score
+- Detection summary
+
+---
+
+## 🛠 Technologies Used
+
+- Python 3.14
+- Ultralytics YOLOv8
+- OpenCV
+- CustomTkinter
+- Pillow
+- NumPy
+
+---
+
+## 📁 Project Structure
 
 ```
 RoadDamageAI/
 │
+├── app.py                 # Desktop application
+├── train.py               # Model training script
+├── predict.py             # Prediction script
+├── requirements.txt
+├── README.md
+│
 ├── models/
-│   └── best.pt
+│   └── best.pt            # Trained YOLO model
+│
+├── dataset/
 │
 ├── test_images/
-│   └── image.jpg
 │
 ├── output/
 │
-├── app.py
-├── predict.py
-├── requirements.txt
-├── README.md
-└── LICENSE
+└── .gitignore
 ```
 
 ---
 
-## Installation
+## ⚙ Installation
 
-Clone the repository
-
-```bash
-git clone https://github.com/yourusername/RoadDamageAI.git
-```
-
-Go inside the project
+Clone the repository:
 
 ```bash
+git clone https://github.com/shuarya-anand/RoadDamageAI.git
 cd RoadDamageAI
 ```
 
-Install dependencies
+Create a virtual environment:
+
+```bash
+python -m venv .venv
+```
+
+Activate it.
+
+### Linux / macOS
+
+```bash
+source .venv/bin/activate
+```
+
+### Windows
+
+```powershell
+.venv\Scripts\activate
+```
+
+Install dependencies:
 
 ```bash
 pip install -r requirements.txt
@@ -75,72 +124,67 @@ pip install -r requirements.txt
 
 ---
 
-## Run Prediction
+## ▶ Running the Application
 
-Place an image inside
-
-```
-test_images/
-```
-
-Run
+Start the desktop application:
 
 ```bash
-python predict.py
-```
-
-The detected image will be saved inside
-
-```
-output/
+python app.py
 ```
 
 ---
 
-## Model
+## 📖 How to Use
 
-Model:
-- YOLOv8m
-
-Framework:
-- Ultralytics
-
-Dataset:
-- RDD2022
-
-Training:
-- Google Colab (Tesla T4 GPU)
-
-Image Size:
-- 640×640
+1. Launch the application.
+2. Click **📂 Open Image**.
+3. Select a road image.
+4. Click **🚀 Run Detection**.
+5. View detected road damages.
+6. Save the annotated image using **💾 Save Image**.
 
 ---
 
-## Technologies Used
+## 🎯 Example Workflow
 
-- Python
-- YOLOv8
-- PyTorch
-- OpenCV
-- Ultralytics
-- Google Colab
+```
+Input Image
+      │
+      ▼
+YOLOv8 Detection
+      │
+      ▼
+Bounding Boxes
+      │
+      ▼
+Confidence Scores
+      │
+      ▼
+Save Detection Result
+```
 
 ---
 
-## Future Improvements
+## 📚 Future Improvements
 
-- Live Webcam Detection
-- Video Detection
-- Dashcam Integration
-- Drone-based Road Inspection
-- Mobile Application
+- Video detection
+- Live webcam detection
+- Drag-and-drop image upload
+- PDF inspection report generation
+- GPS location tagging
+- Detection history
+- Multi-language support
 
 ---
 
-## Author
+## 👨‍💻 Author
 
-Shaurya Anand
+**Shaurya Anand**
 
-Class X
+RoadDamageAI was developed as a school AI project demonstrating the application of computer vision and deep learning for automated road damage detection.
 
-School AI Project
+---
+
+## 📄 License
+
+This project is intended for educational and learning purposes.
