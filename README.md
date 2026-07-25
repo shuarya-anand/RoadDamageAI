@@ -170,7 +170,23 @@ After downloading, place the dataset inside a folder named:
 ```text
 dataset/
 ```
+## 📈 Model Training Results
 
+The YOLOv8 model was trained on the RDD2022 dataset.
+
+### Training Curves
+
+| Results | Confusion Matrix |
+|---------|------------------|
+| ![](results/results.png) | ![](results/confusion_matrix.png) |
+
+### Precision-Recall Curve
+
+![](results/PR_curve.png)
+
+### F1 Score Curve
+
+![](results/F1_curve.png)
 ---
 
 ## 📈 Future Improvements
