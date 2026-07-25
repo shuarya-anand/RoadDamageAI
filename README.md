@@ -172,22 +172,52 @@ dataset/
 ```
 ## 📈 Model Training Results
 
-The YOLOv8 model was trained on the RDD2022 dataset.
 
-### Training Curves
+## Overall Training Metrics
 
-| Results | Confusion Matrix |
-|---------|------------------|
-| ![](results/results.png) | ![](results/confusion_matrix.png) |
+![](results.png)
 
-### Precision-Recall Curve
-
-![](results/PR_curve.png)
-
-### F1 Score Curve
-
-![](results/F1_curve.png)
 ---
+
+## Confusion Matrix
+
+![](confusion_matrix.png)
+
+---
+
+## Normalized Confusion Matrix
+
+![](confusion_matrix_normalized.png)
+
+---
+
+## Precision-Recall Curve
+
+![](BoxPR_curve.png)
+
+---
+
+## F1 Score Curve
+
+![](BoxF1_curve.png)
+
+---
+
+## Precision Curve
+
+![](BoxP_curve.png)
+
+---
+
+## Recall Curve
+
+![](BoxR_curve.png)
+
+---
+
+## Dataset Labels
+
+![](labels.jpg)
 
 ## 📈 Future Improvements
 
