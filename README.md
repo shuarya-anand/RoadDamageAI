@@ -173,51 +173,51 @@ dataset/
 ## 📈 Model Training Results
 
 
-## Overall Training Metrics
+## 📈 Overall Training Results
 
-![](results.png)
-
----
-
-## Confusion Matrix
-
-![](confusion_matrix.png)
+![](results/results.png)
 
 ---
 
-## Normalized Confusion Matrix
+## 📊 Confusion Matrix
 
-![](confusion_matrix_normalized.png)
-
----
-
-## Precision-Recall Curve
-
-![](BoxPR_curve.png)
+![](results/confusion_matrix.png)
 
 ---
 
-## F1 Score Curve
+## 📊 Normalized Confusion Matrix
 
-![](BoxF1_curve.png)
-
----
-
-## Precision Curve
-
-![](BoxP_curve.png)
+![](results/confusion_matrix_normalized.png)
 
 ---
 
-## Recall Curve
+## 📉 Precision-Recall Curve
 
-![](BoxR_curve.png)
+![](results/BoxPR_curve.png)
 
 ---
 
-## Dataset Labels
+## 📈 F1 Score Curve
 
-![](labels.jpg)
+![](results/BoxF1_curve.png)
+
+---
+
+## 📈 Precision Curve
+
+![](results/BoxP_curve.png)
+
+---
+
+## 📈 Recall Curve
+
+![](results/BoxR_curve.png)
+
+---
+
+## 🏷️ Dataset Labels
+
+![](results/labels.jpg)
 
 ## 📈 Future Improvements
 
