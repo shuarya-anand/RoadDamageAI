@@ -170,7 +170,6 @@ After downloading, place the dataset inside a folder named:
 ```text
 dataset/
 ```
-## 📈 Model Training Results
 
 
 ## 📈 Overall Training Results
