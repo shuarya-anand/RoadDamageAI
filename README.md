@@ -73,7 +73,7 @@ RoadDamageAI/
 Clone the repository
 
 ```bash
-git clone https://github.com/shuarya-anand/RoadDamageAI.git
+git clone https://github.com/shuarya-anand/RoadDamageAI
 cd RoadDamageAI
 ```
 
