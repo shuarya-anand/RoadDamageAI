@@ -10,11 +10,9 @@ jobs:
     runs-on: windows-latest
 
     steps:
-      - name: Checkout repository
-        uses: actions/checkout@v4
+      - uses: actions/checkout@v4
 
-      - name: Set up Python
-        uses: actions/setup-python@v5
+      - uses: actions/setup-python@v5
         with:
           python-version: "3.13"
 
@@ -28,8 +26,20 @@ jobs:
         run: |
           pyinstaller --onefile --windowed --name RoadDamageAI app.py
 
-      - name: Upload EXE
+      - name: Prepare Release Folder
+        shell: pwsh
+        run: |
+          mkdir Release
+          copy dist\RoadDamageAI.exe Release\
+          mkdir Release\models
+          copy models\best.pt Release\models\
+          mkdir Release\test_images
+          xcopy test_images Release\test_images /E /I
+          copy LICENSE Release\
+          echo "Double-click RoadDamageAI.exe to run the application." > Release\README_RUN.txt
+
+      - name: Upload Package
         uses: actions/upload-artifact@v4
         with:
           name: RoadDamageAI-Windows
-          path: dist/RoadDamageAI.exe
+          path: Release
