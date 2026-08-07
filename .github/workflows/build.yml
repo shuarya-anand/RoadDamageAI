@@ -10,34 +10,64 @@ jobs:
     runs-on: windows-latest
 
     steps:
-      - uses: actions/checkout@v4
+      - name: Checkout Repository
+        uses: actions/checkout@v4
 
-      - uses: actions/setup-python@v5
+      - name: Setup Python
+        uses: actions/setup-python@v5
         with:
           python-version: "3.13"
 
-      - name: Install dependencies
+      - name: Install Dependencies
         run: |
           python -m pip install --upgrade pip
           pip install -r requirements.txt
           pip install pyinstaller
 
       - name: Build EXE
+        shell: cmd
         run: |
-          pyinstaller --onefile --windowed --name RoadDamageAI app.py
+          pyinstaller ^
+          --noconfirm ^
+          --clean ^
+          --onefile ^
+          --windowed ^
+          --name RoadDamageAI ^
+          --collect-all ultralytics ^
+          --collect-all customtkinter ^
+          --collect-all PIL ^
+          --collect-all torch ^
+          --collect-all torchvision ^
+          --hidden-import=cv2 ^
+          --hidden-import=numpy ^
+          app.py
 
       - name: Prepare Release Folder
-        shell: pwsh
+        shell: cmd
         run: |
           mkdir Release
           copy dist\RoadDamageAI.exe Release\
+
           mkdir Release\models
           copy models\best.pt Release\models\
-          mkdir Release\test_images
-          xcopy test_images Release\test_images /E /I
-          echo "Double-click RoadDamageAI.exe to run the application." > Release\README_RUN.txt
 
-      - name: Upload Package
+          mkdir Release\test_images
+          xcopy test_images Release\test_images /E /I /Y
+
+          (
+          echo RoadDamageAI Professional v1.0
+          echo.
+          echo ==============================
+          echo.
+          echo 1. Keep the models folder next to RoadDamageAI.exe
+          echo 2. Double-click RoadDamageAI.exe
+          echo 3. Open an image
+          echo 4. Click Run Analysis
+          echo.
+          echo Developed by Shaurya Anand
+          ) > Release\README_RUN.txt
+
+      - name: Upload Windows Package
         uses: actions/upload-artifact@v4
         with:
           name: RoadDamageAI-Windows
