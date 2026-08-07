@@ -35,7 +35,6 @@ jobs:
           copy models\best.pt Release\models\
           mkdir Release\test_images
           xcopy test_images Release\test_images /E /I
-          copy LICENSE Release\
           echo "Double-click RoadDamageAI.exe to run the application." > Release\README_RUN.txt
 
       - name: Upload Package
