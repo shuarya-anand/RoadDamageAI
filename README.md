@@ -664,20 +664,42 @@ The final annotated image can be saved for documentation or further analysis.
 
 ---
 
-# ⚙️ Installation
+# ⚙️ Installation, Running & Complete User Guide
+
+RoadDamageAI can be used in **two different ways**.
+
+### Method 1 — Run from Python source code
+
+This method is recommended if you want to study the project, modify the code, retrain the model, or develop new features.
+
+### Method 2 — Download the Windows Release
+
+This method is recommended if you simply want to use RoadDamageAI without installing Python or the project's dependencies.
+
+The Windows release is provided as a **ZIP file through the GitHub Releases section**. Download the ZIP, extract it, and run `RoadDamageAI.exe`.
+
+---
+
+# 🟢 Method 1 — Run RoadDamageAI from Python
 
 ## Requirements
 
-You need:
+Before installing RoadDamageAI from source, make sure your computer has:
 
-* Python
+* Python 3.13 or a compatible Python version
 * pip
 * Git
-* Sufficient storage for the required Python packages and model
+* Internet connection for installing dependencies
+* Sufficient storage for Python packages and the trained AI model
+* A computer capable of running PyTorch and YOLO inference
+
+> A dedicated GPU is **not required** to run the application. The model can also perform inference using the CPU, although processing may be slower.
 
 ---
 
 ## 1. Clone the Repository
+
+Open a terminal or command prompt and clone the GitHub repository:
 
 ```bash
 git clone https://github.com/shuarya-anand/RoadDamageAI.git
@@ -689,41 +711,91 @@ Enter the project directory:
 cd RoadDamageAI
 ```
 
+After entering the directory, you should be inside the main RoadDamageAI project folder.
+
+The project contains files such as:
+
+```text
+app.py
+predict.py
+train.py
+requirements.txt
+models/
+test_images/
+results/
+```
+
 ---
 
 ## 2. Create a Virtual Environment
 
+A virtual environment is recommended because it keeps RoadDamageAI's Python packages separate from the rest of your system.
+
 ### Linux / macOS
+
+Create the environment:
 
 ```bash
 python -m venv .venv
+```
+
+Activate it:
+
+```bash
 source .venv/bin/activate
 ```
 
+After activation, your terminal should show something similar to:
+
+```text
+(.venv)
+```
+
+before the terminal prompt.
+
 ### Windows
+
+Create the environment:
 
 ```powershell
 python -m venv .venv
+```
+
+Activate it:
+
+```powershell
 .venv\Scripts\activate
+```
+
+If activation is successful, your terminal should show:
+
+```text
+(.venv)
 ```
 
 ---
 
-## 3. Install Dependencies
+## 3. Upgrade pip
 
-Upgrade pip:
+After activating the virtual environment, upgrade pip:
 
 ```bash
 python -m pip install --upgrade pip
 ```
 
-Install the required packages:
+This helps ensure that the required Python packages can be installed correctly.
+
+---
+
+## 4. Install the Required Dependencies
+
+Install all project dependencies using:
 
 ```bash
 pip install -r requirements.txt
 ```
 
-The main dependencies include:
+The main packages used by RoadDamageAI include:
 
 ```text
 ultralytics
@@ -735,11 +807,29 @@ pillow
 customtkinter
 ```
 
+These packages provide the main functionality required by the project.
+
+### What the major packages are used for
+
+| Package       | Purpose                                     |
+| ------------- | ------------------------------------------- |
+| Ultralytics   | YOLO model and object detection             |
+| PyTorch       | Deep learning framework                     |
+| Torchvision   | Computer vision utilities used with PyTorch |
+| OpenCV        | Image processing and image handling         |
+| NumPy         | Numerical operations                        |
+| Pillow        | Loading and displaying images               |
+| CustomTkinter | Desktop graphical user interface            |
+
+Installation may take some time because PyTorch and the other computer-vision packages can be relatively large.
+
 ---
 
-# ▶️ Running the Application
+# ▶️ Running RoadDamageAI from Python
 
-Once the dependencies are installed, start the application with:
+After installing the dependencies, make sure your virtual environment is activated.
+
+Then run:
 
 ```bash
 python app.py
@@ -747,41 +837,53 @@ python app.py
 
 The RoadDamageAI desktop application should open.
 
+The application runs locally on your computer. The selected road image is processed by the trained YOLOv8 model and the detection result is displayed in the GUI.
+
 ---
 
 # 📖 Complete User Guide
 
 ## Step 1 — Launch the Application
 
-Run:
+Start the application with:
 
 ```bash
 python app.py
 ```
 
-The application window will appear.
+The RoadDamageAI window will appear.
+
+The application provides controls for opening an image, running detection, viewing the result, and saving the annotated image.
 
 ---
 
-## Step 2 — Open an Image
+## Step 2 — Open a Road Image
 
-Click the:
+Click:
 
 ```text
 📂 Open Image
 ```
 
-button.
-
 A file-selection window will appear.
+
+Navigate to the location of the road image you want to analyze.
+
+RoadDamageAI can be used with common image formats such as:
+
+```text
+.jpg
+.jpeg
+.png
+```
 
 ---
 
-## Step 3 — Select a Road Image
+## Step 3 — Select an Image
 
-Select an image from your computer.
+Select the road image and click **Open**.
 
-You can use one of the included test images:
+For testing, the repository contains sample images in:
 
 ```text
 test_images/
@@ -793,17 +895,26 @@ For example:
 test_images/1.jpg
 ```
 
----
-
-## Step 4 — Preview the Image
-
-After selecting the image, the application displays the selected image.
-
-Make sure the correct image has been loaded before starting detection.
+You can use these images to verify that the application is working correctly.
 
 ---
 
-## Step 5 — Run Detection
+## Step 4 — Preview the Selected Image
+
+After selecting an image, RoadDamageAI loads it into the application.
+
+The image preview allows you to verify that you selected the intended road image.
+
+Before running detection, check that:
+
+* The image loaded correctly.
+* The image is a road image.
+* The image is not corrupted.
+* The correct file was selected.
+
+---
+
+## Step 5 — Start AI Detection
 
 Click:
 
@@ -813,67 +924,568 @@ Click:
 
 The selected image is passed to the trained YOLOv8 model.
 
-The model analyzes the image and searches for the seven supported road-damage categories.
+The model analyzes the image and searches for the road-damage categories it was trained to recognize.
+
+The model can detect:
+
+* Longitudinal Crack
+* Transverse Crack
+* Alligator Crack
+* Pothole
+* Crosswalk Blur
+* White Line Blur
+* Utility Hole
 
 ---
 
-## Step 6 — Wait for Inference
+## Step 6 — AI Inference
 
-The model performs inference locally on the computer.
+During this stage, the YOLOv8 model performs object detection.
 
-The processing time depends on:
-
-* CPU/GPU performance
-* Image resolution
-* Number of detected objects
-* System resources
-
----
-
-## Step 7 — View the Detection
-
-Once processing is complete, the application displays the detected damage.
-
-A detection can contain:
+The basic process is:
 
 ```text
-Damage Type
-Confidence Score
-Bounding Box
+Selected Image
+      │
+      ▼
+Image Preprocessing
+      │
+      ▼
+YOLOv8 Model
+      │
+      ▼
+Object Detection
+      │
+      ├── Damage Class
+      ├── Confidence
+      └── Bounding Box
+      │
+      ▼
+Annotated Image
 ```
+
+The model performs inference locally.
+
+No image needs to be uploaded to an external AI service for detection.
+
+---
+
+## Step 7 — Wait for Processing
+
+The time required for detection depends on your computer.
+
+Processing speed can be affected by:
+
+* CPU performance
+* GPU availability
+* Image resolution
+* Number of detected objects
+* Available RAM
+* Other programs running on the computer
+
+A computer with a dedicated GPU may perform inference faster than a CPU-only system.
+
+---
+
+## Step 8 — View the Detection Results
+
+After inference is complete, RoadDamageAI displays the detection results.
+
+Detected damage is shown using bounding boxes.
+
+A detection may contain information such as:
+
+```text
+Pothole
+0.91
+```
+
+A confidence score of:
+
+```text
+0.91
+```
+
+means the model assigned approximately **91% confidence** to that prediction.
+
+The result can contain multiple detections if multiple damaged areas are present in the image.
 
 For example:
 
 ```text
-Pothole 0.91
+Pothole       0.91
+D00 Crack     0.84
+D20 Crack     0.76
 ```
 
-means that the model assigned a confidence score of approximately 91% to that prediction.
+The confidence score is the model's confidence in its prediction; it should not be interpreted as a guaranteed percentage of real-world correctness.
 
 ---
 
-## Step 8 — Review the Result
+## Step 9 — Examine the Bounding Boxes
 
-Check:
+The bounding boxes show approximately where the model believes the damage is located.
 
-* Whether the correct road damage was detected.
-* Whether the bounding box is around the damaged area.
-* Whether the confidence score is reasonable.
-* Whether multiple damaged areas were detected.
+When reviewing a result, check:
+
+* Is the box around an actual damaged area?
+* Is the detected class reasonable?
+* Is the confidence score sufficiently high?
+* Are there any missed damaged areas?
+* Are there any false detections?
+
+This manual review is important because AI predictions are not guaranteed to be correct.
 
 ---
 
-## Step 9 — Save the Result
+## Step 10 — Save the Detection Result
 
-Click:
+After reviewing the result, click:
 
 ```text
 💾 Save Image
 ```
 
-The annotated image can then be saved locally.
+Choose the location and filename for the output image.
 
-Saved detection results can be placed inside:
+The saved image contains the detection annotations, including the bounding boxes and labels.
+
+You can store your results in the project's:
+
+```text
+output/
+```
+
+directory.
+
+For example:
+
+```text
+output/
+└── road_detection.png
+```
+
+The saved image can then be used for:
+
+* Project demonstrations
+* Model testing
+* School presentation
+* Documentation
+* Comparing different predictions
+
+---
+
+# 🔍 What Happens Internally?
+
+When the user selects an image and starts detection, RoadDamageAI performs several steps.
+
+### 1. Image Selection
+
+The application receives the image selected by the user.
+
+### 2. Image Preprocessing
+
+The image is prepared for the YOLO model.
+
+### 3. Model Loading
+
+RoadDamageAI loads the trained model:
+
+```text
+models/best.pt
+```
+
+### 4. Inference
+
+The YOLOv8 model analyzes the image and predicts possible road-damage objects.
+
+### 5. Confidence Filtering
+
+Predictions are evaluated according to the model's confidence threshold.
+
+### 6. Bounding Box Generation
+
+For each accepted detection, the model provides a bounding box around the predicted damage.
+
+### 7. Annotation
+
+The application draws the detection information onto the image.
+
+### 8. Display
+
+The annotated image is shown in the application.
+
+### 9. Saving
+
+The user can save the final annotated image to the computer.
+
+---
+
+# 🟣 Method 2 — Download and Run the Windows Release
+
+If you do not want to install Python, PyTorch, YOLO, OpenCV, or the other dependencies manually, you can use the pre-built Windows version.
+
+The Windows version is packaged as a standalone application using **PyInstaller**.
+
+---
+
+## 1. Open the GitHub Releases Page
+
+Go to the **Releases** section of the RoadDamageAI GitHub repository.
+
+The Windows release will be provided as a ZIP archive.
+
+---
+
+## 2. Download the Release ZIP
+
+Download the latest Windows release ZIP file.
+
+The release contains the application and the files required to run the trained model.
+
+The ZIP package contains files similar to:
+
+```text
+RoadDamageAI-Windows/
+│
+├── RoadDamageAI.exe
+├── README_RUN.txt
+│
+├── models/
+│   └── best.pt
+│
+├── test_images/
+│   ├── 1.jpg
+│   ├── 2.jpg
+│   ├── 3.jpg
+│   └── ...
+│
+└── output/
+```
+
+---
+
+## 3. Extract the ZIP File
+
+After downloading the release:
+
+1. Open your Downloads folder.
+2. Find the RoadDamageAI ZIP file.
+3. Right-click the ZIP file.
+4. Select **Extract All...**
+5. Choose a suitable location.
+6. Click **Extract**.
+
+Do **not** try to run the EXE directly from inside the ZIP archive.
+
+The application should be run from the extracted folder because it needs access to the trained model and other included files.
+
+---
+
+## 4. Open the Extracted Folder
+
+After extraction, open the RoadDamageAI folder.
+
+You should see:
+
+```text
+RoadDamageAI.exe
+models/
+test_images/
+output/
+README_RUN.txt
+```
+
+The most important files are:
+
+```text
+RoadDamageAI.exe
+models/best.pt
+```
+
+The EXE is the application, while `best.pt` is the trained AI model used for detection.
+
+---
+
+## 5. Start RoadDamageAI
+
+Double-click:
+
+```text
+RoadDamageAI.exe
+```
+
+The application should start without requiring you to install Python or manually install the project dependencies.
+
+---
+
+## 6. Use the Application
+
+The workflow is the same as the Python version:
+
+```text
+Open RoadDamageAI.exe
+        │
+        ▼
+Open Image
+        │
+        ▼
+Select Road Image
+        │
+        ▼
+Run Detection
+        │
+        ▼
+YOLOv8 Inference
+        │
+        ▼
+View Results
+        │
+        ▼
+Save Image
+```
+
+---
+
+# 📦 Windows Release Contents
+
+The release ZIP is designed to keep the application organized.
+
+```text
+RoadDamageAI-Windows/
+│
+├── RoadDamageAI.exe
+│       └── Main Windows application
+│
+├── models/
+│   └── best.pt
+│       └── Trained YOLOv8 model
+│
+├── test_images/
+│       └── Sample images for testing
+│
+├── output/
+│       └── Folder for saved detection results
+│
+└── README_RUN.txt
+        └── Quick instructions for running the application
+```
+
+> **Important:** Keep `RoadDamageAI.exe` and the `models` folder together. The application needs `models/best.pt` to perform road-damage detection.
+
+---
+
+# 🪟 Windows EXE and Custom Icon
+
+The Windows executable is built using PyInstaller.
+
+The application uses the project's custom icon:
+
+```text
+RoadDamageAI.ico
+```
+
+The build command used by the project is:
+
+```bash
+pyinstaller --onefile --windowed --name RoadDamageAI --icon=RoadDamageAI.ico app.py
+```
+
+The resulting executable is:
+
+```text
+dist/RoadDamageAI.exe
+```
+
+The final release package then places the executable together with the trained model and sample images.
+
+---
+
+# 🧪 Testing the Application
+
+After installation or extraction, it is recommended to test the application using the sample images included in:
+
+```text
+test_images/
+```
+
+A simple test can be performed as follows:
+
+```text
+1. Launch RoadDamageAI
+2. Open test_images/1.jpg
+3. Run Detection
+4. Check the detected bounding boxes
+5. Check the damage labels
+6. Check the confidence scores
+7. Save the result
+8. Open the saved image and verify the annotations
+```
+
+Testing with several different images is recommended because road conditions, lighting, camera angles, and image quality can affect model predictions.
+
+---
+
+# ⚠️ Troubleshooting
+
+## The application does not start
+
+If using the Python version, verify that the virtual environment is activated and the dependencies are installed:
+
+```bash
+pip install -r requirements.txt
+```
+
+Then try:
+
+```bash
+python app.py
+```
+
+If using the Windows EXE, make sure you extracted the complete ZIP file and did not move `RoadDamageAI.exe` away from the `models` folder.
+
+---
+
+## The model cannot be found
+
+Make sure this file exists:
+
+```text
+models/best.pt
+```
+
+For the Windows release, the expected structure is:
+
+```text
+RoadDamageAI.exe
+models/
+└── best.pt
+```
+
+Do not delete or rename `best.pt`.
+
+---
+
+## No damage is detected
+
+No detection does not necessarily mean that the road has no damage.
+
+Possible reasons include:
+
+* The damage is too small.
+* The image quality is poor.
+* The damage is partially hidden.
+* The camera angle is different from the training images.
+* The confidence threshold filters the prediction.
+* The damage type is difficult for the trained model to recognize.
+
+Try another image from the included test set.
+
+---
+
+## Detection is slow
+
+CPU inference can be slower than GPU inference.
+
+Processing speed depends on your hardware and the image being analyzed.
+
+Closing unnecessary applications can also free system resources.
+
+---
+
+# 🔄 Python Version vs Windows Release
+
+| Feature                        | Python Version | Windows Release   |
+| ------------------------------ | -------------- | ----------------- |
+| Python required                | Yes            | No                |
+| Manual dependency installation | Yes            | No                |
+| Source code available          | Yes            | No setup required |
+| Can modify code                | Yes            | No                |
+| Includes trained model         | Yes            | Yes               |
+| Includes sample images         | Yes            | Yes               |
+| Easy for demonstration         | Good           | Excellent         |
+| Recommended for development    | ✅              | ❌                 |
+| Recommended for normal users   | Good           | ✅                 |
+
+---
+
+# 📌 Recommended Method
+
+If you are developing or studying the project, use **Method 1**.
+
+You can inspect:
+
+```text
+app.py
+train.py
+predict.py
+models/
+results/
+```
+
+and modify the project.
+
+If you simply want to demonstrate RoadDamageAI on a Windows computer, use **Method 2**.
+
+Download the latest release ZIP from GitHub Releases, extract it, and run:
+
+```text
+RoadDamageAI.exe
+```
+
+No Python installation or manual package installation is required.
+
+---
+
+# 💡 Quick Start
+
+### For developers
+
+```bash
+git clone https://github.com/shuarya-anand/RoadDamageAI.git
+cd RoadDamageAI
+python -m venv .venv
+source .venv/bin/activate
+pip install -r requirements.txt
+python app.py
+```
+
+### For Windows users
+
+```text
+Download Release ZIP
+        ↓
+Extract ZIP
+        ↓
+Open extracted folder
+        ↓
+Double-click RoadDamageAI.exe
+        ↓
+Open Image
+        ↓
+Run Detection
+        ↓
+Review Results
+        ↓
+Save Image
+```
+
+---
+
+# 📦 Download the Application
+
+The pre-built Windows application can be downloaded from the project's **GitHub Releases** section.
+
+Download the latest **RoadDamageAI Windows ZIP**, extract it, and run:
+
+```text
+RoadDamageAI.exe
+```
+
+The release package contains the executable, trained model, sample test images, output directory, and a quick-start README.
+
+No Python installation is required for the Windows release.
+
 
 ```text
 output/
