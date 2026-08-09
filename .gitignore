@@ -1,19 +1,28 @@
 # Python
+
 __pycache__/
 *.pyc
 
 # Virtual Environment
+
 .venv/
 
 # Outputs
+
 runs/
 output/
-
 # Dataset
+
 dataset/
 
 # VS Code
+
 .vscode/
 
 # OS
+
 .DS_Store
+# PyInstaller
+
+build/
+dist/
