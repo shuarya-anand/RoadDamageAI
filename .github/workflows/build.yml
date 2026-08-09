@@ -55,6 +55,7 @@ jobs:
           xcopy test_images Release\test_images /E /I /Y
 
           (
+<<<<<<< HEAD
           echo RoadDamageAI Professional v1.0
           echo.
           echo ==============================
@@ -65,6 +66,18 @@ jobs:
           echo 4. Click Run Analysis
           echo.
           echo Developed by Shaurya Anand
+=======
+            echo RoadDamageAI Professional v1.0
+            echo.
+            echo ==============================
+            echo.
+            echo 1. Keep the models folder next to RoadDamageAI.exe
+            echo 2. Double-click RoadDamageAI.exe
+            echo 3. Open an image
+            echo 4. Click Run Analysis
+            echo.
+            echo Developed by Shaurya Anand
+>>>>>>> 33a20a9b (Update application, prediction and Windows build)
           ) > Release\README_RUN.txt
 
       - name: Upload Windows Package
