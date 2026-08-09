@@ -26,9 +26,15 @@ jobs:
           pip install -r requirements.txt
           pip install pyinstaller
 
+      - name: Check application icon
+        shell: pwsh
+        run: |
+          Write-Host "Checking RoadDamageAI.ico..."
+          Get-Item "RoadDamageAI.ico"
+
       - name: Build RoadDamageAI
         run: |
-          pyinstaller --onefile --windowed --name RoadDamageAI --icon=RoadDamageAI.ico app.py
+          pyinstaller --clean --onefile --windowed --name RoadDamageAI --icon="RoadDamageAI.ico" app.py
 
       - name: Prepare Release
         shell: pwsh
