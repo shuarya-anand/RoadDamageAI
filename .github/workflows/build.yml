@@ -28,36 +28,54 @@ jobs:
 
       - name: Build RoadDamageAI
         run: |
-          pyinstaller --onedir --windowed --name RoadDamageAI app.py
+          pyinstaller --onefile --windowed --name RoadDamageAI app.py
 
       - name: Prepare Release
         shell: pwsh
         run: |
           New-Item -ItemType Directory -Force -Path Release
 
-          Copy-Item -Path "dist\RoadDamageAI" -Destination "Release\RoadDamageAI" -Recurse
+          Copy-Item "dist\RoadDamageAI.exe" "Release\RoadDamageAI.exe"
 
-          New-Item -ItemType Directory -Force -Path "Release\RoadDamageAI\models"
-          Copy-Item "models\best.pt" "Release\RoadDamageAI\models\best.pt"
+          New-Item -ItemType Directory -Force -Path "Release\models"
+          Copy-Item "models\best.pt" "Release\models\best.pt"
 
-          New-Item -ItemType Directory -Force -Path "Release\RoadDamageAI\test_images"
-          Copy-Item "test_images\*" "Release\RoadDamageAI\test_images\" -Recurse
+          New-Item -ItemType Directory -Force -Path "Release\test_images"
+          Copy-Item "test_images\*" "Release\test_images\" -Recurse
 
           @"
-          RoadDamageAI - Windows
+          RoadDamageAI
+          =================
 
-          How to run:
-          1. Open the RoadDamageAI folder.
-          2. Double-click RoadDamageAI.exe.
-          3. Click "Open image".
-          4. Select a road image.
-          5. RoadDamageAI will analyze it automatically.
+          AI-powered road damage detection desktop application.
+
+          HOW TO RUN
+          ----------
+          1. Double-click RoadDamageAI.exe
+          2. Click "Open image"
+          3. Select a road image
+          4. RoadDamageAI will analyze the image automatically
+          5. View the detected damage and confidence scores
 
           No Python installation is required.
+
+          PROJECT
+          -------
+          RoadDamageAI uses a YOLO-based computer vision model
+          trained for road damage detection.
+
+          Supported damage categories include:
+          - Longitudinal crack
+          - Transverse crack
+          - Alligator crack
+          - Pothole
+          - Crosswalk blur
+          - White line blur
+          - Utility hole
           "@ | Set-Content "Release\README_RUN.txt"
 
-      - name: Upload Windows Build
+      - name: Upload Windows Release
         uses: actions/upload-artifact@v4
         with:
-          name: RoadDamageAI-Windows-Fast
+          name: RoadDamageAI-Windows
           path: Release
