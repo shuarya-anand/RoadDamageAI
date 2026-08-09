@@ -19,6 +19,7 @@ jobs:
         with:
           python-version: "3.13"
           cache: "pip"
+          cache-dependency-path: requirements.txt
 
       - name: Install dependencies
         run: |
@@ -26,15 +27,9 @@ jobs:
           pip install -r requirements.txt
           pip install pyinstaller
 
-      - name: Check application icon
-        shell: pwsh
-        run: |
-          Write-Host "Checking RoadDamageAI.ico..."
-          Get-Item "RoadDamageAI.ico"
-
       - name: Build RoadDamageAI
         run: |
-          pyinstaller --clean --onefile --windowed --name RoadDamageAI --icon="RoadDamageAI.ico" app.py
+          pyinstaller --clean --onefile --windowed --name RoadDamageAI app.py
 
       - name: Prepare Release
         shell: pwsh
@@ -57,7 +52,7 @@ jobs:
           HOW TO RUN
           ----------
           1. Double-click RoadDamageAI.exe
-          2. Click "Open image"
+          2. Click "Open Image"
           3. Select a road image
           4. RoadDamageAI will analyze the image automatically
           5. View the detected damage and confidence scores
