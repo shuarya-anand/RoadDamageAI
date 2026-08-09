@@ -28,19 +28,18 @@ jobs:
 
       - name: Build RoadDamageAI
         run: |
-          pyinstaller --onefile --windowed --name RoadDamageAI app.py
+          pyinstaller --onefile --windowed --name RoadDamageAI --icon=RoadDamageAI.ico app.py
 
       - name: Prepare Release
         shell: pwsh
         run: |
-          New-Item -ItemType Directory -Force -Path Release
+          New-Item -ItemType Directory -Force -Path "Release"
+          New-Item -ItemType Directory -Force -Path "Release\models"
+          New-Item -ItemType Directory -Force -Path "Release\test_images"
+          New-Item -ItemType Directory -Force -Path "Release\output"
 
           Copy-Item "dist\RoadDamageAI.exe" "Release\RoadDamageAI.exe"
-
-          New-Item -ItemType Directory -Force -Path "Release\models"
           Copy-Item "models\best.pt" "Release\models\best.pt"
-
-          New-Item -ItemType Directory -Force -Path "Release\test_images"
           Copy-Item "test_images\*" "Release\test_images\" -Recurse
 
           @"
