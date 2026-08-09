@@ -10,65 +10,51 @@ jobs:
     runs-on: windows-latest
 
     steps:
-      - name: Checkout Repository
+      - name: Checkout repository
         uses: actions/checkout@v4
 
-      - name: Setup Python
+      - name: Set up Python
         uses: actions/setup-python@v5
         with:
           python-version: "3.13"
 
-      - name: Install Dependencies
-        shell: cmd
+      - name: Install dependencies
         run: |
           python -m pip install --upgrade pip
-          pip install ultralytics opencv-python numpy pillow customtkinter
-          pip install torch torchvision --index-url https://download.pytorch.org/whl/cpu
+          pip install -r requirements.txt
           pip install pyinstaller
 
-      - name: Build EXE
-        shell: cmd
+      - name: Build DEBUG EXE
         run: |
-          pyinstaller ^
-            --noconfirm ^
-            --clean ^
-            --onefile ^
-            --windowed ^
-            --name RoadDamageAI ^
-            --collect-all ultralytics ^
-            --collect-all customtkinter ^
-            --collect-all PIL ^
-            --collect-all torch ^
-            --collect-all torchvision ^
-            --hidden-import=cv2 ^
-            --hidden-import=numpy ^
-            app.py
+          pyinstaller --onefile --console --name RoadDamageAI app.py
 
       - name: Prepare Release Folder
-        shell: cmd
+        shell: pwsh
         run: |
-          mkdir Release
-          copy dist\RoadDamageAI.exe Release\
+          New-Item -ItemType Directory -Force -Path Release
+          Copy-Item dist\RoadDamageAI.exe Release\
 
-          mkdir Release\models
-          copy models\best.pt Release\models\
+          New-Item -ItemType Directory -Force -Path Release\models
+          Copy-Item models\best.pt Release\models\
 
-          mkdir Release\test_images
-          xcopy test_images Release\test_images /E /I /Y
+          New-Item -ItemType Directory -Force -Path Release\test_images
+          Copy-Item test_images\* Release\test_images\ -Recurse
 
-          echo RoadDamageAI Professional v1.0 > Release\README_RUN.txt
-          echo. >> Release\README_RUN.txt
-          echo ============================== >> Release\README_RUN.txt
-          echo. >> Release\README_RUN.txt
-          echo 1. Keep the models folder next to RoadDamageAI.exe >> Release\README_RUN.txt
-          echo 2. Double-click RoadDamageAI.exe >> Release\README_RUN.txt
-          echo 3. Open an image >> Release\README_RUN.txt
-          echo 4. Click Run Analysis >> Release\README_RUN.txt
-          echo. >> Release\README_RUN.txt
-          echo Developed by Shaurya Anand >> Release\README_RUN.txt
+          Set-Content Release\README_RUN.txt @"
+          RoadDamageAI - Windows
 
-      - name: Upload Windows Package
+          DEBUG BUILD
+
+          Run RoadDamageAI.exe.
+
+          If the application closes immediately, open Command Prompt
+          in this folder and run:
+
+          RoadDamageAI.exe
+          "@
+
+      - name: Upload Package
         uses: actions/upload-artifact@v4
         with:
-          name: RoadDamageAI-Windows
+          name: RoadDamageAI-Windows-Debug
           path: Release
