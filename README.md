@@ -356,13 +356,9 @@ The dataset contains examples of road damage including cracks, potholes, road ma
 
 ### Dataset Sources
 
-Road Damage Detector:
-
-https://github.com/sekilab/RoadDamageDetector
-
 Dataset Ninja:
 
-https://datasetninja.com/road-damage-detection
+https://datasetninja.com/road-damage-detector#download
 
 > The complete dataset is not included in this repository because of its size.
 
